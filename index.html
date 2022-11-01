@@ -322,28 +322,29 @@
   <!-- STICKY HEADER END -->
   <!-- HERO SECTION START -->
   <section
-    class="bg-[url('../images/hero-bg.jpg')] w-full h-screen bg-no-repeat bg-cover bg-[position:50%_0]  md:bg-[position:0_30%] relative font-['Roboto']">
+    class="bg-[url('../images/hero-bg.jpg')] w-full h-screen bg-no-repeat bg-cover bg-[position:50%_0]  md:bg-[position:0_30%] relative font-['Roboto'] shadow-2xl">
     <!-- OVERLAY -->
     <div class="absolute inset-0 bg-black/40 z-0"></div>
-    <div class="container max-w-screen-xl mx-auto px-4 grid grid-cols-12 relative z-10">
-      <!-- LEFT SIDE -->
-      <div class="col-span-12 md:col-span-8 text-center md:text-left h-full">
-        <div class="h-full flex flex-col justify-end">
-          <!-- HEADING -->
-          <h1 class="text-white text-[80px] leading-tight font-light mb-4">
-            Raise.
-            <br>
-            Money.
-            <br>
-            For Anything.
-          </h1>
-          <!-- CAPTION -->
-          <p class="text-2xl text-white font-light">Conekti is Where Fundraisers and Backers Meet</p>
+    <div class="w-full h-full flex flex-col items-center justify-center">
+      <div class="container max-w-screen-xl mx-auto px-4 grid grid-cols-12 relative z-10">
+        <!-- LEFT SIDE -->
+        <div class="col-span-12 md:col-span-8 text-center md:text-left h-full">
+          <div class="h-full flex flex-col justify-end">
+            <!-- HEADING -->
+            <h1 class="text-white text-5xl md:text-[80px] leading-tight font-light mb-4 mt-40 md:mt-0">
+              Raise.
+              <br>
+              Money.
+              <br>
+              For Anything.
+            </h1>
+            <!-- CAPTION -->
+            <p class="text-xl md:text-2xl text-white font-light">Conekti is Where Fundraisers and Backers Meet</p>
+          </div>
         </div>
-      </div>
-      <!-- RIGHT SIDE -->
-      <div class="col-span-12 md:col-span-4 text-center h-full  flex items-center">
-        <ul class="flex flex-col gap-y-5 w-[80%] mx-auto mt-36" x-data="{
+        <!-- RIGHT SIDE -->
+        <div class="hidden col-span-12 md:col-span-4 text-center h-full md:flex items-center">
+          <ul class="flex flex-col gap-y-5 w-[80%] mx-auto mt-36" x-data="{
           sideMenu: [
           {title: 'SUPPORT A GOOD CAUSE', url: '#'},
           {title: 'BRING CREATIVE PROJECTS TO LIFE', url: '#'},
@@ -354,48 +355,241 @@
           {title: 'GET AFFORABLE GROWTH CAPITAL', url: '#'},
           ]
         }">
-          <template x-for="item in sideMenu" :key="item.title">
-            <li>
-              <a :href="item.url"
-                class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-[#f5713f] before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-12 py-2.5 capitalize font-medium text-white block text-sm relative after:block after:absolute border border-white/80 hover:border-transparent rounded-md transition-all hover:text-white after:inset-0 after:-z-[2] after:bg-[#504f4e] after:rounded-md after:transition-all"
-                x-text="item.title">
-              </a>
-            </li>
-          </template>
+            <template x-for="item in sideMenu" :key="item.title">
+              <li>
+                <a :href="item.url"
+                  class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-[#f5713f] before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-12 py-2.5 capitalize font-medium text-white block text-sm relative after:block after:absolute border border-white/80 hover:border-transparent rounded-md transition-all hover:text-white after:inset-0 after:-z-[2] after:bg-[#504f4e] after:rounded-md after:transition-all"
+                  x-text="item.title">
+                </a>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+      <div class="container max-w-screen-xl mx-auto px-4 relative z-10 mt-24 md:mt-8">
+        <ul class="flex flex-wrap justify-center items-center md:justify-start gap-5 lg:gap-x-9">
+          <li>
+            <a href="#"
+              class="text-white text-base bg-black rounded-full py-1.5 px-4 md:py-3 md:px-7 border-2 border-[#f5713f] transition-all hover:bg-[#f5713f] font-light shadow-md block">I’m
+              a Backer</a>
+          </li>
+          <li>
+            <a href="#"
+              class="text-white text-base bg-black rounded-full py-1.5 px-4 md:py-3 md:px-7 border-2 border-[#f5713f] transition-all hover:bg-[#f5713f] font-light shadow-md block">I’m
+              a Sponsor</a>
+          </li>
+          <li>
+            <a href="#"
+              class="text-white text-base bg-[#f5713f] rounded-full py-1.5 px-4 md:py-3 md:px-7 border border-black/60 hover:border-[#f5713f] transition-all hover:opacity-90 font-light shadow-md block">I’m
+              a Nonprofit</a>
+          </li>
+          <li>
+            <a href="#"
+              class="text-white text-base bg-[#f5713f] rounded-full py-1.5 px-4 md:py-3 md:px-7 border border-black/60 hover:border-[#f5713f] transition-all hover:opacity-90 font-light shadow-md block">I’m
+              an Individual</a>
+          </li>
+          <li>
+            <a href="#"
+              class="text-white text-base bg-[#f5713f] rounded-full py-1.5 px-4 md:py-3 md:px-7 border border-black/60 hover:border-[#f5713f] transition-all hover:opacity-90 font-light shadow-md block">I’m
+              a Company</a>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="container max-w-screen-xl mx-auto px-4 relative z-10 mt-8">
-      <ul class="flex gap-x-3 lg:gap-x-9">
-        <li>
-          <a href="#"
-            class="text-white bg-black rounded-full py-3 px-7 border-2 border-[#f5713f] transition-all hover:bg-[#f5713f] font-light shadow-md block">I’m
-            a Backer</a>
-        </li>
-        <li>
-          <a href="#"
-            class="text-white bg-black rounded-full py-3 px-7 border-2 border-[#f5713f] transition-all hover:bg-[#f5713f] font-light shadow-md block">I’m
-            a Sponsor</a>
-        </li>
-        <li>
-          <a href="#"
-            class="text-white bg-[#f5713f] rounded-full py-3 px-7 border border-black/60 hover:border-[#f5713f] transition-all hover:opacity-90 font-light shadow-md block">I’m
-            a Nonprofit</a>
-        </li>
-        <li>
-          <a href="#"
-            class="text-white bg-[#f5713f] rounded-full py-3 px-7 border border-black/60 hover:border-[#f5713f] transition-all hover:opacity-90 font-light shadow-md block">I’m
-            an Individual</a>
-        </li>
-        <li>
-          <a href="#"
-            class="text-white bg-[#f5713f] rounded-full py-3 px-7 border border-black/60 hover:border-[#f5713f] transition-all hover:opacity-90 font-light shadow-md block">I’m
-            a Company</a>
-        </li>
-      </ul>
-    </div>
   </section>
   <!-- HERO SECTION END -->
+  <!-- MOST MOMENTUM SECTION START -->
+  <section class="bg-[#f2f2f2]" x-data="{
+      cardData: [
+        {
+          title: 'ABC Company',
+          location: 'Freeport, Bahamas',
+          funds: 22,
+          campaign: 1,
+          moreUrl: '#',
+          description: `We make payments painless for apps, marketplaces and platforms.`,
+          raisedAmount: 4951000,
+          totalAmount: 10,
+          daysLeft: 45,
+          imageSrc: 'images/main-post-1.jpg',
+          url: '#',
+          type1: 'Start-up',
+          type2: 'Equity',
+        },
+        {
+          title: 'XYZ Company',
+          location: 'Freeport, Bahamas',
+          funds: 45,
+          campaign: 3,
+          moreUrl: '#',
+          description: `We come from Visa, Apple, and PayPal and we're here to make`,
+          raisedAmount: 2653975,
+          totalAmount: 3,
+          daysLeft: 25,
+          imageSrc: 'images/main-post-2.jpg',
+          url: '#',
+          type1: 'Start-up',
+          type2: 'Equity',
+        },
+        {
+          title: 'haus.me',
+          location: 'Freeport, Bahamas',
+          funds: 95,
+          campaign: 7,
+          moreUrl: '#',
+          description: `It's like Apple and Tesla designed a house....`,
+          raisedAmount: 1670000,
+          totalAmount: 2,
+          daysLeft: 30,
+          imageSrc: 'images/main-post-3.jpg',
+          url: '#',
+          type1: 'Start-up',
+          type2: 'Equity',
+        },
+        {
+          title: 'INDINERO',
+          location: 'Freeport, Bahamas',
+          funds: 95,
+          campaign: 7,
+          moreUrl: '#',
+          description: `Accounting software for data-driven businesses`,
+          raisedAmount: 1635000,
+          totalAmount: 5,
+          daysLeft: 40,
+          imageSrc: 'images/main-post-4.jpg',
+          url: '#',
+          type1: 'Start-up',
+          type2: 'Equity',
+        },
+      ]
+    }">
+    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto'] py-10 md:py-12">
+      <!-- HEADING BOX -->
+      <div class="w-full mb-6 md:mb-8">
+        <h2 class="text-black/75 uppercase text-3xl">Most momentum</h2>
+        <p class="text-[#666666] font-semibold text-base">Offerings that have raised the most money in the last few days
+        </p>
+      </div>
+      <!-- CARD CONTAINER -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-12">
+        <!-- CARD -->
+        <template x-for="(card, index) in cardData" :key="index">
+          <div class="w-full h-auto hover:shadow-2xl transition-all duration-300 group">
+            <article class="bg-white flex flex-col relative h-full">
+              <!-- THUMBNAIL -->
+              <div class="relative aspect-video overflow-hidden">
+                <a href="#" class="block absolute inset-0">
+                  <img :src="card.imageSrc" :alt="card.title" :title="card.title"
+                    class="h-full w-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
+                </a>
+                <div class="absolute top-0 right-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type2"></span>
+                </div>
+                <div class="absolute top-0 left-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type1"></span>
+                </div>
+              </div>
+              <!-- BODY -->
+              <div class="flex-1 p-4 text-left">
+                <div>
+                  <!-- FUNDING -->
+                  <div class="flex justify-between border-b-2 border-[#f5713f] pb-2">
+                    <span class="uppercase text-base text-[#666666] font-bold">Funding</span>
+                    <span class="text-[#f5713f] relative">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                      <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[7px]"
+                        x-text="card.funds"></span>
+                    </span>
+                  </div>
+                  <!-- HEADING -->
+                  <h3 class="text-lg leading-tight mt-1.5 font-bold hover:opacity-75 text-[#f5713f]">
+                    <a :href="card.url" x-text="card.title">
+                    </a>
+                  </h3>
+                  <!-- LOCATION AND CAMPAIGN -->
+                  <div class="flex justify-between items-center mt-1.5 text-black/70 font-['roboto'] ">
+                    <!-- LOCATION -->
+                    <div class="text-xs flex">
+                      <!-- LOCATION NAME -->
+                      <span x-text="card.location"></span>
+                    </div>
+                    <!-- CAMPAIGN -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.campaign"></span>
+                      <span>&nbsp;Campaign</span>
+                      <!-- SEPERATOR -->
+                      <span class="bg-[#ccc] w-0.5 h-4 rounded-md mx-1.5"></span>
+                      <a :href="card.moreUrl" class="text-[#f5713f] hover:underline">More</a>
+                    </div>
+                  </div>
+                  <!-- POST BODY -->
+                  <div class="mt-2.5">
+                    <p class="mb-0 text-sm text-black/80 leading-6" x-text="card.description">
+                    </p>
+                  </div>
+                  <!-- AMOUNT RAISED -->
+                  <div class="text-right flex items-end gap-x-1 justify-end mt-2">
+                    <h4 class="text-xl text-[#f5713f]"><span>$</span><span x-text="card.raisedAmount"></span></h4>
+                    <span class="text-lg">USD raised</span>
+                  </div>
+                  <!-- PROGRESS BAR -->
+                  <div class="w-full relative mt-3">
+                    <!-- LEFT DOT -->
+                    <span class="absolute left-0 -top-full bg-blue-600 w-3 h-3 rounded-full"></span>
+                    <!-- RIGHT DOT -->
+                    <span class="absolute right-0 -top-full bg-[#ccc] w-3 h-3 rounded-full"></span>
+                    <!-- MAIN BAR -->
+                    <div class="w-full h-1 bg-[#ccc]"></div>
+                    <!-- PROGRESS BAR -->
+                    <div class="absolute left-0 top-0 h-1 bg-blue-600"
+                      :style="'width:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </div>
+                    <!-- PROGRESS DOT -->
+                    <span
+                      class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 bg-white w-5 h-5 rounded-full before:absolute before:w-full before:h-full before:scale-75 before:rounded-full before:bg-[#f5713f]"
+                      :style="'left:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </span>
+                  </div>
+                  <!-- TOTAL AMOUNT -->
+                  <div class="flex justify-between items-center text-black/70 font-['roboto'] mt-3">
+                    <!-- AMOUNT -->
+                    <div class="text-xs flex">
+                      <span x-text="Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100)">
+                        <!-- PERCENTAGE -->
+                      </span>
+                      % of $
+                      <span x-text="card.totalAmount">
+                        <!-- AMOUNT IN M -->
+                      </span>
+                      M&nbsp;
+                      <span class="text-[#f5713f]">fixed&nbsp;</span>
+                      goal
+                    </div>
+                    <!-- DAYS LEFT -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.daysLeft"></span>
+                      <span>&nbsp;Days Left</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+  <!-- MOST MOMENTUM SECTION END -->
+  <!-- MOST FUNDED SECTION START -->
+  <!-- MOST FUNDED SECTION END -->
 
   <!-- MOCKS -->
   <div class="bg-purple-600 w-full h-screen"></div>
