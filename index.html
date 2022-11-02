@@ -19,7 +19,7 @@
 
 <body>
   <!-- STICKY HEADER START -->
-  <header class="fixed w-full bg-white/80 top-0 text-base z-50 shadow-md" id="header" x-ref="header" x-data="{
+  <header class="fixed w-full bg-white/80 top-0 text-base z-50 shadow-md" x-data="{
             topBar: document.querySelector('#topBar'),
             isSticky: false,
             isNavigationMobileOpen: false,
@@ -322,7 +322,7 @@
   <!-- STICKY HEADER END -->
   <!-- HERO SECTION START -->
   <section
-    class="bg-[url('../images/hero-bg.jpg')] w-full h-screen bg-no-repeat bg-cover bg-[position:50%_0]  md:bg-[position:0_30%] relative font-['Roboto'] shadow-2xl">
+    class="bg-[url('../images/hero-bg.jpg')] w-full h-screen bg-no-repeat bg-cover bg-[position:50%_0]  md:bg-[position:0_30%] relative font-['Roboto'] shadow-2xl pb-4">
     <!-- OVERLAY -->
     <div class="absolute inset-0 bg-black/40 z-0"></div>
     <div class="w-full h-full flex flex-col items-center justify-center">
@@ -415,6 +415,9 @@
           url: '#',
           type1: 'Start-up',
           type2: 'Equity',
+          signupRequired: false,
+          investorName: 'Mark Robinson',
+          investorAvatar: 'images/investor-1.jpg'
         },
         {
           title: 'XYZ Company',
@@ -430,6 +433,9 @@
           url: '#',
           type1: 'Start-up',
           type2: 'Equity',
+          signupRequired: false,
+          investorName: 'Robert Harris',
+          investorAvatar: 'images/investor-1.jpg'
         },
         {
           title: 'haus.me',
@@ -445,6 +451,9 @@
           url: '#',
           type1: 'Start-up',
           type2: 'Equity',
+          signupRequired: true,
+          investorName: 'Robert Harris',
+          investorAvatar: 'images/investor-1.jpg'
         },
         {
           title: 'INDINERO',
@@ -460,10 +469,13 @@
           url: '#',
           type1: 'Start-up',
           type2: 'Equity',
+          signupRequired: false,
+          investorName: 'Robert Harris',
+          investorAvatar: 'images/investor-1.jpg'
         },
       ]
     }">
-    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto'] py-10 md:py-12">
+    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto'] py-10 md:py-14">
       <!-- HEADING BOX -->
       <div class="w-full mb-6 md:mb-8">
         <h2 class="text-black/75 uppercase text-3xl">Most momentum</h2>
@@ -475,12 +487,13 @@
         <!-- CARD -->
         <template x-for="(card, index) in cardData" :key="index">
           <div class="w-full h-auto hover:shadow-2xl transition-all duration-300 group">
-            <article class="bg-white flex flex-col relative h-full">
+            <article class="bg-white flex flex-col relative h-full overflow-hidden">
               <!-- THUMBNAIL -->
               <div class="relative aspect-video overflow-hidden">
                 <a href="#" class="block absolute inset-0">
                   <img :src="card.imageSrc" :alt="card.title" :title="card.title"
-                    class="h-full w-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
+                    class="h-full w-full object-cover transition-all duration-300"
+                    :class="{'group-hover:scale-105' : !card.signupRequired}" loading="lazy">
                 </a>
                 <div class="absolute top-0 right-0 p-4 z-10">
                   <span
@@ -581,6 +594,48 @@
                   </div>
                 </div>
               </div>
+              <!-- SIGN UP REQUIRED -->
+              <template x-if="card.signupRequired">
+                <div class="absolute inset-0 w-full h-full bg-black/75 z-40 backdrop-blur-sm">
+                  <div class="w-full h-full flex flex-col justify-center items-center gap-8 p-4">
+                    <!-- LOCK -->
+                    <span class="text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-16 h-16">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                    </span>
+                    <!-- DESCRIPTION -->
+                    <p class="text-xl text-white text-center">
+                      SIGN UP FOR FREE TO VIEW THIS DEAL
+                    </p>
+                    <!-- SIGN UP -->
+                    <div class="w-full text-center">
+                      <a href="#"
+                        class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-white before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-12 py-5 capitalize font-medium text-white hidden sm:block text-sm relative after:block after:absolute rounded-md transition-all hover:text-black after:inset-0 after:-z-[2] after:bg-[#f5713f] after:rounded-md after:transition-all w-full">
+                        SIGN UP
+                      </a>
+                    </div>
+                    <!-- INVESTOR BADGE -->
+                    <div class="absolute bottom-0 left-0 p-4 self-start flex gap-3">
+                      <!-- THUMBNAIL -->
+                      <div class="w-10 h-10">
+                        <img :src="card.investorAvatar" alt="" class="object-cover w-full h-full rounded-full">
+                      </div>
+                      <!-- INVESTOR NAME -->
+                      <div>
+                        <h5 class="text-white/70 text-sm font-bold">FEATURED INVESTOR</h5>
+                        <span class="text-white/90 text-sm font-bold" x-text="card.investorName"></span>
+                      </div>
+                    </div>
+                    <!-- PRIVATE BADGE -->
+                    <div class="inline-block absolute bg-[#f5713f] text-white px-14 py-1 top-6 -right-12 rotate-45">
+                      PRIVATE
+                    </div>
+                  </div>
+                </div>
+              </template>
             </article>
           </div>
         </template>
@@ -589,13 +644,1196 @@
   </section>
   <!-- MOST MOMENTUM SECTION END -->
   <!-- MOST FUNDED SECTION START -->
+  <section class="bg-[#f2f2f2]" x-data="{
+        cardData: [
+          {
+            title: 'ABC Company',
+            location: 'Freeport, Bahamas',
+            funds: 22,
+            campaign: 1,
+            moreUrl: '#',
+            description: `We make payments painless for apps, marketplaces and platforms.`,
+            raisedAmount: 4951000,
+            totalAmount: 10,
+            daysLeft: 45,
+            imageSrc: 'images/main-post-1.jpg',
+            url: '#',
+            type1: 'Start-up',
+            type2: 'Equity',
+            signupRequired: true,
+            investorName: 'Mark Robinson',
+            investorAvatar: 'images/investor-1.jpg'
+          },
+          {
+            title: 'XYZ Company',
+            location: 'Freeport, Bahamas',
+            funds: 45,
+            campaign: 3,
+            moreUrl: '#',
+            description: `We come from Visa, Apple, and PayPal and we're here to make`,
+            raisedAmount: 2653975,
+            totalAmount: 3,
+            daysLeft: 25,
+            imageSrc: 'images/main-post-2.jpg',
+            url: '#',
+            type1: 'Start-up',
+            type2: 'Equity',
+            signupRequired: false,
+            investorName: 'Robert Harris',
+            investorAvatar: 'images/investor-1.jpg'
+          },
+          {
+            title: 'haus.me',
+            location: 'Freeport, Bahamas',
+            funds: 95,
+            campaign: 7,
+            moreUrl: '#',
+            description: `It's like Apple and Tesla designed a house....`,
+            raisedAmount: 1670000,
+            totalAmount: 2,
+            daysLeft: 30,
+            imageSrc: 'images/main-post-3.jpg',
+            url: '#',
+            type1: 'Start-up',
+            type2: 'Equity',
+            signupRequired: false,
+            investorName: 'Robert Harris',
+            investorAvatar: 'images/investor-1.jpg'
+          },
+          {
+            title: 'INDINERO',
+            location: 'Freeport, Bahamas',
+            funds: 95,
+            campaign: 7,
+            moreUrl: '#',
+            description: `Accounting software for data-driven businesses`,
+            raisedAmount: 1635000,
+            totalAmount: 5,
+            daysLeft: 40,
+            imageSrc: 'images/main-post-4.jpg',
+            url: '#',
+            type1: 'Start-up',
+            type2: 'Equity',
+            signupRequired: true,
+            investorName: 'Robert Harris',
+            investorAvatar: 'images/investor-1.jpg'
+          },
+        ]
+      }">
+    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto'] py-10 md:py-12">
+      <!-- HEADING BOX -->
+      <div class="w-full mb-6 md:mb-8">
+        <h2 class="text-black/75 uppercase text-3xl">Most Funded</h2>
+        <p class="text-[#666666] font-semibold text-base">Offerings that have raised the most money so far
+        </p>
+      </div>
+      <!-- CARD CONTAINER -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-12">
+        <!-- CARD -->
+        <template x-for="(card, index) in cardData" :key="index">
+          <div class="w-full h-auto hover:shadow-2xl transition-all duration-300 group">
+            <article class="bg-white flex flex-col relative h-full overflow-hidden">
+              <!-- THUMBNAIL -->
+              <div class="relative aspect-video overflow-hidden">
+                <a href="#" class="block absolute inset-0">
+                  <img :src="card.imageSrc" :alt="card.title" :title="card.title"
+                    class="h-full w-full object-cover transition-all duration-300"
+                    :class="{'group-hover:scale-105' : !card.signupRequired}" loading="lazy">
+                </a>
+                <div class="absolute top-0 right-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type2"></span>
+                </div>
+                <div class="absolute top-0 left-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type1"></span>
+                </div>
+              </div>
+              <!-- BODY -->
+              <div class="flex-1 p-4 text-left">
+                <div>
+                  <!-- FUNDING -->
+                  <div class="flex justify-between border-b-2 border-[#f5713f] pb-2">
+                    <span class="uppercase text-base text-[#666666] font-bold">Funding</span>
+                    <span class="text-[#f5713f] relative">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                      <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[7px]"
+                        x-text="card.funds"></span>
+                    </span>
+                  </div>
+                  <!-- HEADING -->
+                  <h3 class="text-lg leading-tight mt-1.5 font-bold hover:opacity-75 text-[#f5713f]">
+                    <a :href="card.url" x-text="card.title">
+                    </a>
+                  </h3>
+                  <!-- LOCATION AND CAMPAIGN -->
+                  <div class="flex justify-between items-center mt-1.5 text-black/70 font-['roboto'] ">
+                    <!-- LOCATION -->
+                    <div class="text-xs flex">
+                      <!-- LOCATION NAME -->
+                      <span x-text="card.location"></span>
+                    </div>
+                    <!-- CAMPAIGN -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.campaign"></span>
+                      <span>&nbsp;Campaign</span>
+                      <!-- SEPERATOR -->
+                      <span class="bg-[#ccc] w-0.5 h-4 rounded-md mx-1.5"></span>
+                      <a :href="card.moreUrl" class="text-[#f5713f] hover:underline">More</a>
+                    </div>
+                  </div>
+                  <!-- POST BODY -->
+                  <div class="mt-2.5">
+                    <p class="mb-0 text-sm text-black/80 leading-6" x-text="card.description">
+                    </p>
+                  </div>
+                  <!-- AMOUNT RAISED -->
+                  <div class="text-right flex items-end gap-x-1 justify-end mt-2">
+                    <h4 class="text-xl text-[#f5713f]"><span>$</span><span x-text="card.raisedAmount"></span></h4>
+                    <span class="text-lg">USD raised</span>
+                  </div>
+                  <!-- PROGRESS BAR -->
+                  <div class="w-full relative mt-3">
+                    <!-- LEFT DOT -->
+                    <span class="absolute left-0 -top-full bg-blue-600 w-3 h-3 rounded-full"></span>
+                    <!-- RIGHT DOT -->
+                    <span class="absolute right-0 -top-full bg-[#ccc] w-3 h-3 rounded-full"></span>
+                    <!-- MAIN BAR -->
+                    <div class="w-full h-1 bg-[#ccc]"></div>
+                    <!-- PROGRESS BAR -->
+                    <div class="absolute left-0 top-0 h-1 bg-blue-600"
+                      :style="'width:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </div>
+                    <!-- PROGRESS DOT -->
+                    <span
+                      class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 bg-white w-5 h-5 rounded-full before:absolute before:w-full before:h-full before:scale-75 before:rounded-full before:bg-[#f5713f]"
+                      :style="'left:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </span>
+                  </div>
+                  <!-- TOTAL AMOUNT -->
+                  <div class="flex justify-between items-center text-black/70 font-['roboto'] mt-3">
+                    <!-- AMOUNT -->
+                    <div class="text-xs flex">
+                      <span x-text="Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100)">
+                        <!-- PERCENTAGE -->
+                      </span>
+                      % of $
+                      <span x-text="card.totalAmount">
+                        <!-- AMOUNT IN M -->
+                      </span>
+                      M&nbsp;
+                      <span class="text-[#f5713f]">fixed&nbsp;</span>
+                      goal
+                    </div>
+                    <!-- DAYS LEFT -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.daysLeft"></span>
+                      <span>&nbsp;Days Left</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- SIGN UP REQUIRED -->
+              <template x-if="card.signupRequired">
+                <div class="absolute inset-0 w-full h-full bg-black/75 z-40 backdrop-blur-sm">
+                  <div class="w-full h-full flex flex-col justify-center items-center gap-8 p-4">
+                    <!-- LOCK -->
+                    <span class="text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-16 h-16">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                    </span>
+                    <!-- DESCRIPTION -->
+                    <p class="text-xl text-white text-center">
+                      SIGN UP FOR FREE TO VIEW THIS DEAL
+                    </p>
+                    <!-- SIGN UP -->
+                    <div class="w-full text-center">
+                      <a href="#"
+                        class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-white before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-12 py-5 capitalize font-medium text-white hidden sm:block text-sm relative after:block after:absolute rounded-md transition-all hover:text-black after:inset-0 after:-z-[2] after:bg-[#f5713f] after:rounded-md after:transition-all w-full">
+                        SIGN UP
+                      </a>
+                    </div>
+                    <!-- INVESTOR BADGE -->
+                    <div class="absolute bottom-0 left-0 p-4 self-start flex gap-3">
+                      <!-- THUMBNAIL -->
+                      <div class="w-10 h-10">
+                        <img :src="card.investorAvatar" alt="" class="object-cover w-full h-full rounded-full">
+                      </div>
+                      <!-- INVESTOR NAME -->
+                      <div>
+                        <h5 class="text-white/70 text-sm font-bold">FEATURED INVESTOR</h5>
+                        <span class="text-white/90 text-sm font-bold" x-text="card.investorName"></span>
+                      </div>
+                    </div>
+                    <!-- PRIVATE BADGE -->
+                    <div class="inline-block absolute bg-[#f5713f] text-white px-14 py-1 top-6 -right-12 rotate-45">
+                      PRIVATE
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </article>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
   <!-- MOST FUNDED SECTION END -->
+  <!-- RECENTLY LAUNCHED SECTION START -->
+  <section class="bg-[#f2f2f2]" x-data="{
+          cardData: [
+            {
+              title: 'ABC Company',
+              location: 'Freeport, Bahamas',
+              funds: 22,
+              campaign: 1,
+              moreUrl: '#',
+              description: `We make payments painless for apps, marketplaces and platforms.`,
+              raisedAmount: 4951000,
+              totalAmount: 10,
+              daysLeft: 45,
+              imageSrc: 'images/main-post-1.jpg',
+              url: '#',
+              type1: 'Start-up',
+              type2: 'Equity',
+              signupRequired: false,
+              investorName: 'Mark Robinson',
+              investorAvatar: 'images/investor-1.jpg'
+            },
+            {
+              title: 'XYZ Company',
+              location: 'Freeport, Bahamas',
+              funds: 45,
+              campaign: 3,
+              moreUrl: '#',
+              description: `We come from Visa, Apple, and PayPal and we're here to make`,
+              raisedAmount: 2653975,
+              totalAmount: 3,
+              daysLeft: 25,
+              imageSrc: 'images/main-post-2.jpg',
+              url: '#',
+              type1: 'Start-up',
+              type2: 'Equity',
+              signupRequired: false,
+              investorName: 'Robert Harris',
+              investorAvatar: 'images/investor-1.jpg'
+            },
+            {
+              title: 'haus.me',
+              location: 'Freeport, Bahamas',
+              funds: 95,
+              campaign: 7,
+              moreUrl: '#',
+              description: `It's like Apple and Tesla designed a house....`,
+              raisedAmount: 1670000,
+              totalAmount: 2,
+              daysLeft: 30,
+              imageSrc: 'images/main-post-3.jpg',
+              url: '#',
+              type1: 'Start-up',
+              type2: 'Equity',
+              signupRequired: false,
+              investorName: 'Robert Harris',
+              investorAvatar: 'images/investor-1.jpg'
+            },
+            {
+              title: 'INDINERO',
+              location: 'Freeport, Bahamas',
+              funds: 95,
+              campaign: 7,
+              moreUrl: '#',
+              description: `Accounting software for data-driven businesses`,
+              raisedAmount: 1635000,
+              totalAmount: 5,
+              daysLeft: 40,
+              imageSrc: 'images/main-post-4.jpg',
+              url: '#',
+              type1: 'Start-up',
+              type2: 'Equity',
+              signupRequired: true,
+              investorName: 'Robert Harris',
+              investorAvatar: 'images/investor-1.jpg'
+            },
+          ]
+        }">
+    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto'] py-10 md:py-12">
+      <!-- HEADING BOX -->
+      <div class="w-full mb-6 md:mb-8">
+        <h2 class="text-black/75 uppercase text-3xl">Recently launched</h2>
+        <p class="text-[#666666] font-semibold text-base">Most recently launched offerings
+        </p>
+      </div>
+      <!-- CARD CONTAINER -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-12">
+        <!-- CARD -->
+        <template x-for="(card, index) in cardData" :key="index">
+          <div class="w-full h-auto hover:shadow-2xl transition-all duration-300 group">
+            <article class="bg-white flex flex-col relative h-full overflow-hidden">
+              <!-- THUMBNAIL -->
+              <div class="relative aspect-video overflow-hidden">
+                <a href="#" class="block absolute inset-0">
+                  <img :src="card.imageSrc" :alt="card.title" :title="card.title"
+                    class="h-full w-full object-cover transition-all duration-300"
+                    :class="{'group-hover:scale-105' : !card.signupRequired}" loading="lazy">
+                </a>
+                <div class="absolute top-0 right-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type2"></span>
+                </div>
+                <div class="absolute top-0 left-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type1"></span>
+                </div>
+              </div>
+              <!-- BODY -->
+              <div class="flex-1 p-4 text-left">
+                <div>
+                  <!-- FUNDING -->
+                  <div class="flex justify-between border-b-2 border-[#f5713f] pb-2">
+                    <span class="uppercase text-base text-[#666666] font-bold">Funding</span>
+                    <span class="text-[#f5713f] relative">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                      <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[7px]"
+                        x-text="card.funds"></span>
+                    </span>
+                  </div>
+                  <!-- HEADING -->
+                  <h3 class="text-lg leading-tight mt-1.5 font-bold hover:opacity-75 text-[#f5713f]">
+                    <a :href="card.url" x-text="card.title">
+                    </a>
+                  </h3>
+                  <!-- LOCATION AND CAMPAIGN -->
+                  <div class="flex justify-between items-center mt-1.5 text-black/70 font-['roboto'] ">
+                    <!-- LOCATION -->
+                    <div class="text-xs flex">
+                      <!-- LOCATION NAME -->
+                      <span x-text="card.location"></span>
+                    </div>
+                    <!-- CAMPAIGN -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.campaign"></span>
+                      <span>&nbsp;Campaign</span>
+                      <!-- SEPERATOR -->
+                      <span class="bg-[#ccc] w-0.5 h-4 rounded-md mx-1.5"></span>
+                      <a :href="card.moreUrl" class="text-[#f5713f] hover:underline">More</a>
+                    </div>
+                  </div>
+                  <!-- POST BODY -->
+                  <div class="mt-2.5">
+                    <p class="mb-0 text-sm text-black/80 leading-6" x-text="card.description">
+                    </p>
+                  </div>
+                  <!-- AMOUNT RAISED -->
+                  <div class="text-right flex items-end gap-x-1 justify-end mt-2">
+                    <h4 class="text-xl text-[#f5713f]"><span>$</span><span x-text="card.raisedAmount"></span></h4>
+                    <span class="text-lg">USD raised</span>
+                  </div>
+                  <!-- PROGRESS BAR -->
+                  <div class="w-full relative mt-3">
+                    <!-- LEFT DOT -->
+                    <span class="absolute left-0 -top-full bg-blue-600 w-3 h-3 rounded-full"></span>
+                    <!-- RIGHT DOT -->
+                    <span class="absolute right-0 -top-full bg-[#ccc] w-3 h-3 rounded-full"></span>
+                    <!-- MAIN BAR -->
+                    <div class="w-full h-1 bg-[#ccc]"></div>
+                    <!-- PROGRESS BAR -->
+                    <div class="absolute left-0 top-0 h-1 bg-blue-600"
+                      :style="'width:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </div>
+                    <!-- PROGRESS DOT -->
+                    <span
+                      class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 bg-white w-5 h-5 rounded-full before:absolute before:w-full before:h-full before:scale-75 before:rounded-full before:bg-[#f5713f]"
+                      :style="'left:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </span>
+                  </div>
+                  <!-- TOTAL AMOUNT -->
+                  <div class="flex justify-between items-center text-black/70 font-['roboto'] mt-3">
+                    <!-- AMOUNT -->
+                    <div class="text-xs flex">
+                      <span x-text="Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100)">
+                        <!-- PERCENTAGE -->
+                      </span>
+                      % of $
+                      <span x-text="card.totalAmount">
+                        <!-- AMOUNT IN M -->
+                      </span>
+                      M&nbsp;
+                      <span class="text-[#f5713f]">fixed&nbsp;</span>
+                      goal
+                    </div>
+                    <!-- DAYS LEFT -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.daysLeft"></span>
+                      <span>&nbsp;Days Left</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- SIGN UP REQUIRED -->
+              <template x-if="card.signupRequired">
+                <div class="absolute inset-0 w-full h-full bg-black/75 z-40 backdrop-blur-sm">
+                  <div class="w-full h-full flex flex-col justify-center items-center gap-8 p-4">
+                    <!-- LOCK -->
+                    <span class="text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-16 h-16">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                    </span>
+                    <!-- DESCRIPTION -->
+                    <p class="text-xl text-white text-center">
+                      SIGN UP FOR FREE TO VIEW THIS DEAL
+                    </p>
+                    <!-- SIGN UP -->
+                    <div class="w-full text-center">
+                      <a href="#"
+                        class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-white before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-12 py-5 capitalize font-medium text-white hidden sm:block text-sm relative after:block after:absolute rounded-md transition-all hover:text-black after:inset-0 after:-z-[2] after:bg-[#f5713f] after:rounded-md after:transition-all w-full">
+                        SIGN UP
+                      </a>
+                    </div>
+                    <!-- INVESTOR BADGE -->
+                    <div class="absolute bottom-0 left-0 p-4 self-start flex gap-3">
+                      <!-- THUMBNAIL -->
+                      <div class="w-10 h-10">
+                        <img :src="card.investorAvatar" alt="" class="object-cover w-full h-full rounded-full">
+                      </div>
+                      <!-- INVESTOR NAME -->
+                      <div>
+                        <h5 class="text-white/70 text-sm font-bold">FEATURED INVESTOR</h5>
+                        <span class="text-white/90 text-sm font-bold" x-text="card.investorName"></span>
+                      </div>
+                    </div>
+                    <!-- PRIVATE BADGE -->
+                    <div class="inline-block absolute bg-[#f5713f] text-white px-14 py-1 top-6 -right-12 rotate-45">
+                      PRIVATE
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </article>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+  <!-- RECENTLY LAUNCHED SECTION END -->
+  <!-- CLOSING SOON SECTION START -->
+  <section class="bg-[#f2f2f2]" x-data="{
+            cardData: [
+              {
+                title: 'ABC Company',
+                location: 'Freeport, Bahamas',
+                funds: 22,
+                campaign: 1,
+                moreUrl: '#',
+                description: `We make payments painless for apps, marketplaces and platforms.`,
+                raisedAmount: 4951000,
+                totalAmount: 10,
+                daysLeft: 45,
+                imageSrc: 'images/main-post-1.jpg',
+                url: '#',
+                type1: 'Start-up',
+                type2: 'Equity',
+                signupRequired: false,
+                investorName: 'Mark Robinson',
+                investorAvatar: 'images/investor-1.jpg'
+              },
+              {
+                title: 'XYZ Company',
+                location: 'Freeport, Bahamas',
+                funds: 45,
+                campaign: 3,
+                moreUrl: '#',
+                description: `We come from Visa, Apple, and PayPal and we're here to make`,
+                raisedAmount: 2653975,
+                totalAmount: 3,
+                daysLeft: 25,
+                imageSrc: 'images/main-post-2.jpg',
+                url: '#',
+                type1: 'Start-up',
+                type2: 'Equity',
+                signupRequired: false,
+                investorName: 'Robert Harris',
+                investorAvatar: 'images/investor-1.jpg'
+              },
+              {
+                title: 'haus.me',
+                location: 'Freeport, Bahamas',
+                funds: 95,
+                campaign: 7,
+                moreUrl: '#',
+                description: `It's like Apple and Tesla designed a house....`,
+                raisedAmount: 1670000,
+                totalAmount: 2,
+                daysLeft: 30,
+                imageSrc: 'images/main-post-3.jpg',
+                url: '#',
+                type1: 'Start-up',
+                type2: 'Equity',
+                signupRequired: false,
+                investorName: 'Robert Harris',
+                investorAvatar: 'images/investor-1.jpg'
+              },
+              {
+                title: 'INDINERO',
+                location: 'Freeport, Bahamas',
+                funds: 95,
+                campaign: 7,
+                moreUrl: '#',
+                description: `Accounting software for data-driven businesses`,
+                raisedAmount: 1635000,
+                totalAmount: 5,
+                daysLeft: 40,
+                imageSrc: 'images/main-post-4.jpg',
+                url: '#',
+                type1: 'Start-up',
+                type2: 'Equity',
+                signupRequired: false,
+                investorName: 'Robert Harris',
+                investorAvatar: 'images/investor-1.jpg'
+              },
+            ]
+          }">
+    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto'] py-10 md:py-12">
+      <!-- HEADING BOX -->
+      <div class="w-full mb-6 md:mb-8">
+        <h2 class="text-black/75 uppercase text-3xl">CLOSING SOON</h2>
+        <p class="text-[#666666] font-semibold text-base">Offerings that will be closing soon
+        </p>
+      </div>
+      <!-- CARD CONTAINER -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-12">
+        <!-- CARD -->
+        <template x-for="(card, index) in cardData" :key="index">
+          <div class="w-full h-auto hover:shadow-2xl transition-all duration-300 group">
+            <article class="bg-white flex flex-col relative h-full overflow-hidden">
+              <!-- THUMBNAIL -->
+              <div class="relative aspect-video overflow-hidden">
+                <a href="#" class="block absolute inset-0">
+                  <img :src="card.imageSrc" :alt="card.title" :title="card.title"
+                    class="h-full w-full object-cover transition-all duration-300"
+                    :class="{'group-hover:scale-105' : !card.signupRequired}" loading="lazy">
+                </a>
+                <div class="absolute top-0 right-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type2"></span>
+                </div>
+                <div class="absolute top-0 left-0 p-4 z-10">
+                  <span
+                    class="bg-[#f5713f] text-white text-xs rounded-full font-['roboto'] py-1 font-medium px-3 capitalize"
+                    x-text="card.type1"></span>
+                </div>
+              </div>
+              <!-- BODY -->
+              <div class="flex-1 p-4 text-left">
+                <div>
+                  <!-- FUNDING -->
+                  <div class="flex justify-between border-b-2 border-[#f5713f] pb-2">
+                    <span class="uppercase text-base text-[#666666] font-bold">Funding</span>
+                    <span class="text-[#f5713f] relative">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                      <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[7px]"
+                        x-text="card.funds"></span>
+                    </span>
+                  </div>
+                  <!-- HEADING -->
+                  <h3 class="text-lg leading-tight mt-1.5 font-bold hover:opacity-75 text-[#f5713f]">
+                    <a :href="card.url" x-text="card.title">
+                    </a>
+                  </h3>
+                  <!-- LOCATION AND CAMPAIGN -->
+                  <div class="flex justify-between items-center mt-1.5 text-black/70 font-['roboto'] ">
+                    <!-- LOCATION -->
+                    <div class="text-xs flex">
+                      <!-- LOCATION NAME -->
+                      <span x-text="card.location"></span>
+                    </div>
+                    <!-- CAMPAIGN -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.campaign"></span>
+                      <span>&nbsp;Campaign</span>
+                      <!-- SEPERATOR -->
+                      <span class="bg-[#ccc] w-0.5 h-4 rounded-md mx-1.5"></span>
+                      <a :href="card.moreUrl" class="text-[#f5713f] hover:underline">More</a>
+                    </div>
+                  </div>
+                  <!-- POST BODY -->
+                  <div class="mt-2.5">
+                    <p class="mb-0 text-sm text-black/80 leading-6" x-text="card.description">
+                    </p>
+                  </div>
+                  <!-- AMOUNT RAISED -->
+                  <div class="text-right flex items-end gap-x-1 justify-end mt-2">
+                    <h4 class="text-xl text-[#f5713f]"><span>$</span><span x-text="card.raisedAmount"></span></h4>
+                    <span class="text-lg">USD raised</span>
+                  </div>
+                  <!-- PROGRESS BAR -->
+                  <div class="w-full relative mt-3">
+                    <!-- LEFT DOT -->
+                    <span class="absolute left-0 -top-full bg-blue-600 w-3 h-3 rounded-full"></span>
+                    <!-- RIGHT DOT -->
+                    <span class="absolute right-0 -top-full bg-[#ccc] w-3 h-3 rounded-full"></span>
+                    <!-- MAIN BAR -->
+                    <div class="w-full h-1 bg-[#ccc]"></div>
+                    <!-- PROGRESS BAR -->
+                    <div class="absolute left-0 top-0 h-1 bg-blue-600"
+                      :style="'width:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </div>
+                    <!-- PROGRESS DOT -->
+                    <span
+                      class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 bg-white w-5 h-5 rounded-full before:absolute before:w-full before:h-full before:scale-75 before:rounded-full before:bg-[#f5713f]"
+                      :style="'left:' +  Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100) + '%'">
+                    </span>
+                  </div>
+                  <!-- TOTAL AMOUNT -->
+                  <div class="flex justify-between items-center text-black/70 font-['roboto'] mt-3">
+                    <!-- AMOUNT -->
+                    <div class="text-xs flex">
+                      <span x-text="Math.floor((card.raisedAmount / (card.totalAmount * 1000000)) * 100)">
+                        <!-- PERCENTAGE -->
+                      </span>
+                      % of $
+                      <span x-text="card.totalAmount">
+                        <!-- AMOUNT IN M -->
+                      </span>
+                      M&nbsp;
+                      <span class="text-[#f5713f]">fixed&nbsp;</span>
+                      goal
+                    </div>
+                    <!-- DAYS LEFT -->
+                    <div class="text-xs flex items-center">
+                      <span x-text="card.daysLeft"></span>
+                      <span>&nbsp;Days Left</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- SIGN UP REQUIRED -->
+              <template x-if="card.signupRequired">
+                <div class="absolute inset-0 w-full h-full bg-black/75 z-40 backdrop-blur-sm">
+                  <div class="w-full h-full flex flex-col justify-center items-center gap-8 p-4">
+                    <!-- LOCK -->
+                    <span class="text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-16 h-16">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                    </span>
+                    <!-- DESCRIPTION -->
+                    <p class="text-xl text-white text-center">
+                      SIGN UP FOR FREE TO VIEW THIS DEAL
+                    </p>
+                    <!-- SIGN UP -->
+                    <div class="w-full text-center">
+                      <a href="#"
+                        class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-white before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-12 py-5 capitalize font-medium text-white hidden sm:block text-sm relative after:block after:absolute rounded-md transition-all hover:text-black after:inset-0 after:-z-[2] after:bg-[#f5713f] after:rounded-md after:transition-all w-full">
+                        SIGN UP
+                      </a>
+                    </div>
+                    <!-- INVESTOR BADGE -->
+                    <div class="absolute bottom-0 left-0 p-4 self-start flex gap-3">
+                      <!-- THUMBNAIL -->
+                      <div class="w-10 h-10">
+                        <img :src="card.investorAvatar" alt="" class="object-cover w-full h-full rounded-full">
+                      </div>
+                      <!-- INVESTOR NAME -->
+                      <div>
+                        <h5 class="text-white/70 text-sm font-bold">FEATURED INVESTOR</h5>
+                        <span class="text-white/90 text-sm font-bold" x-text="card.investorName"></span>
+                      </div>
+                    </div>
+                    <!-- PRIVATE BADGE -->
+                    <div class="inline-block absolute bg-[#f5713f] text-white px-14 py-1 top-6 -right-12 rotate-45">
+                      PRIVATE
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </article>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+  <!-- CLOSING SOON SECTION END -->
+  <!-- EXPLORE MORE BUTTON -->
+  <div class="text-center bg-[#f2f2f2] py-10">
+    <a href="#"
+      class="before:rounded-md before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-white before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all leading-none px-16 py-5 capitalize font-medium text-white inline-block text-sm relative after:block border border-transparent hover:border-[#f5713f] after:absolute rounded-md transition-all hover:text-black after:inset-0 after:-z-[2] after:bg-[#f5713f] after:rounded-md after:transition-all z-10">
+      Explore more investments
+    </a>
+  </div>
 
-  <!-- MOCKS -->
-  <div class="bg-purple-600 w-full h-screen"></div>
-  <div class="bg-purple-700 w-full h-screen"></div>
-  <div class="bg-purple-800 w-full h-screen"></div>
-  <div class="bg-purple-900 w-full h-screen"></div>
+  <!-- HOW TO INVEST SECTION START -->
+  <section class="bg-[#f2f2f2]">
+    <div class="container max-w-screen-xl mx-auto py-16 px-4 font-['Roboto']">
+      <!-- HEADING BOX -->
+      <div class="w-full">
+        <h2 class="text-black/75 uppercase text-3xl md:text-5xl md:ml-12">HOW TO INVEST</h2>
+        </p>
+      </div>
+      <!-- SECTION CONTENT -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-16 gap-y-6">
+        <div>
+          <div class="flex">
+            <span class="text-base text-[#f5713f]">01</span>
+            <span class="flex items-center justify-center">
+              <svg class="w-[90%]" width="100%" height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0.5" y1="0.5" x2="100%" y2="0.5" stroke="#E06004" stroke-linecap="round"
+                  stroke-dasharray="0.5 8"></line>
+              </svg>
+            </span>
+          </div>
+          <h5 class="uppercase max-w-[75%] text-2xl font-medium text-black/70 leading-tight">Sign <br> up</h5>
+          <p class="max-w-[76%] font-medium text-[#999999]">Securely create an account on StartEngine.</p>
+        </div>
+        <div>
+          <div class="flex">
+            <span class="text-base text-[#f5713f]">02</span>
+            <span class="flex items-center justify-center">
+              <svg class="w-[90%]" width="100%" height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0.5" y1="0.5" x2="100%" y2="0.5" stroke="#E06004" stroke-linecap="round"
+                  stroke-dasharray="0.5 8">
+                </line>
+              </svg>
+            </span>
+          </div>
+          <h5 class="uppercase max-w-[75%] text-2xl font-medium text-black/70 leading-tight">BROWSE <br> INVESTMENTS
+          </h5>
+          <p class="max-w-[76%] font-medium text-[#999999]">Review hundreds of investment opportunities, from Startups
+            to Collectibles.</p>
+        </div>
+        <div>
+          <div class="flex">
+            <span class="text-base text-[#f5713f]">03</span>
+            <span class="flex items-center justify-center">
+              <svg class="w-[90%]" width="100%" height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0.5" y1="0.5" x2="100%" y2="0.5" stroke="#E06004" stroke-linecap="round"
+                  stroke-dasharray="0.5 8">
+                </line>
+              </svg>
+            </span>
+          </div>
+          <h5 class="uppercase max-w-[75%] text-2xl font-medium text-black/70 leading-tight">MAKE AN <br> INVESTMENTS
+          </h5>
+          <p class="max-w-[76%] font-medium text-[#999999]">
+            Submit your payment and own a financial stake in a Startup or Collectible.
+          </p>
+        </div>
+        <div>
+          <div class="flex">
+            <span class="text-base text-[#f5713f]">04</span>
+            <span class="flex items-center justify-center">
+              <svg class="w-[90%]" width="100%" height="2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0.5" y1="0.5" x2="100%" y2="0.5" stroke="#E06004" stroke-linecap="round"
+                  stroke-dasharray="0.5 8">
+                </line>
+              </svg>
+            </span>
+          </div>
+          <h5 class="uppercase max-w-[75%] text-2xl font-medium text-black/70 leading-tight">HOLD <br> OR SELL
+          </h5>
+          <p class="max-w-[76%] font-medium text-[#999999]">
+            You can continue to invest in future rounds, hold on to your investment, or sell eligible securities on
+            StartEngine’s
+            trading platform.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- HOW TO INVEST SECTION END -->
+
+  <!-- FAQ SECTION START -->
+  <section class="bg-[#f2f2f2]">
+    <div class="container max-w-screen-xl mx-auto py-10 px-4 font-['Roboto']">
+      <div x-data="{selected: null}" class="md:flex md:items-center lg:items-start">
+        <div class="hidden md:block md:flex-none md:w-1/2 relative">
+          <div class="w-[40%] mx-auto">
+            <img src="images/faq.webp" alt="" class="object-cover w-full h-full">
+          </div>
+        </div>
+
+        <div class="md:flex-none md:w-1/2">
+          <!-- HEADING BOX -->
+          <div class="w-full">
+            <h2 class="text-black/75 uppercase text-3xl md:text-4xl">STILL HAVE QUESTIONS?</h2>
+            <p class="text-[#666666] font-semibold text-xl">We've got answers
+            </p>
+          </div>
+          <ul class="accordion pt-8">
+            <li class="relative border-b border-gray-200 transition-all duration-300"
+              :class="{ 'bg-gray-100 md:rounded-lg': selected == 1 }">
+              <button type="button" class="w-full px-6 py-6" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center text-left justify-between">
+                  <span class="text-gray-700 font-medium text-lg">How much can I invest?</span>
+                  <span class="text-[#f5713f]">
+                    <svg class="svg-icon transition-all duration-300" :class="{ 'rotate-180': selected === 1 }"
+                      width="31" height="31" viewBox="0 0 30.33 30.27" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <title>ORGANIZE YOUR WAY</title>
+                      <path class="st0" d="M15,0C6.7,0,0,6.7,0,15c0,8.3,6.7,15,15,15c8.3,0,15-6.7,15-15C30,6.7,23.3,0,15,0z M15,18.7l-6-6l1.4-1.4
+                      l4.6,4.6l4.6-4.6l1.4,1.4L15,18.7z"></path>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+              <div class="relative overflow-hidden transition-all max-h-0 duration-700"
+                x-bind:style="selected == 1 ? 'max-height: ' + $el.scrollHeight + 'px' : ''">
+                <div class="px-8 pb-8 text-[#545454] text-sm">
+                  <p>With Regulation A+, a non-accredited investor can only invest a maximum of 10% of their annual
+                    income or 10% of their
+                    net worth per year, whichever is greater. There are no restrictions for accredited investors.
+                    <br>
+                    <br>
+                    With Regulation Crowdfunding, non-accredited investors with an annual income or net worth less than
+                    $124,000, are
+                    limited to invest a maximum of 5% of the greater of those two amounts. For those with an annual
+                    income and net worth
+                    greater than $124,000, he/she is limited to investing 10% of the greater of the two amounts.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="relative border-b border-gray-200 transition-all duration-300"
+              :class="{ 'bg-gray-100 md:rounded-lg': selected == 2 }">
+              <button type="button" class="w-full px-6 py-6" @click="selected !== 2 ? selected = 2 : selected = null">
+                <div class="flex items-center text-left justify-between">
+                  <span class="text-gray-700 font-medium text-lg">When will I receive my shares?</span>
+                  <span class="text-[#f5713f]">
+                    <svg class="svg-icon transition-all duration-300" :class="{ 'rotate-180': selected === 2 }"
+                      width="31" height="31" viewBox="0 0 30.33 30.27" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <title>ORGANIZE YOUR WAY</title>
+                      <path class="st0" d="M15,0C6.7,0,0,6.7,0,15c0,8.3,6.7,15,15,15c8.3,0,15-6.7,15-15C30,6.7,23.3,0,15,0z M15,18.7l-6-6l1.4-1.4
+                                  l4.6,4.6l4.6-4.6l1.4,1.4L15,18.7z"></path>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+              <div class="relative overflow-hidden transition-all max-h-0 duration-700"
+                x-bind:style="selected == 2 ? 'max-height: ' + $el.scrollHeight + 'px' : ''">
+                <div class="px-8 pb-8 text-[#545454] text-sm">
+                  <p>
+                    At the close of an offering, all investors whose funds have “cleared” by this time will be included
+                    in the disbursement.
+                    At this time, each investor will receive an email from StartEngine with their countersigned
+                    Subscription Agreement,
+                    which will serve as their proof of purchase moving forward.
+                    <br>
+                    <br>
+                    Please keep in mind that a company can conduct a series of “closes” or withdrawals of funds
+                    throughout the duration of
+                    the campaign. If you are included in that withdrawal period, you will be emailed your countersigned
+                    Subscription
+                    Agreement and proof of purchase immediately following that withdrawal.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="relative border-b border-gray-200 transition-all duration-300"
+              :class="{ 'bg-gray-100 md:rounded-lg': selected == 2 }">
+              <button type="button" class="w-full px-6 py-6" @click="selected !== 3 ? selected = 3 : selected = null">
+                <div class="flex items-center text-left justify-between">
+                  <span class="text-gray-700 font-medium text-lg">What will the return on my investment be?</span>
+                  <span class="text-[#f5713f]">
+                    <svg class="svg-icon transition-all duration-300" :class="{ 'rotate-180': selected === 3 }"
+                      width="31" height="31" viewBox="0 0 30.33 30.27" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <title>ORGANIZE YOUR WAY</title>
+                      <path class="st0" d="M15,0C6.7,0,0,6.7,0,15c0,8.3,6.7,15,15,15c8.3,0,15-6.7,15-15C30,6.7,23.3,0,15,0z M15,18.7l-6-6l1.4-1.4
+                                              l4.6,4.6l4.6-4.6l1.4,1.4L15,18.7z"></path>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+              <div class="relative overflow-hidden transition-all max-h-0 duration-700"
+                x-bind:style="selected == 3 ? 'max-height: ' + $el.scrollHeight + 'px' : ''">
+                <div class="px-8 pb-8 text-[#545454] text-sm">
+                  <p>
+                    StartEngine assists companies in raising capital, and once the offering is closed, we are no longer
+                    involved with
+                    whether the company chooses to list shares on a secondary market, or what occurs thereafter.
+                    Therefore, StartEngine has
+                    no control or insight into your investment after the close of the live offering. In addition, we are
+                    not permitted to
+                    provide financial advice. You may want to contact a financial professional to discuss possible
+                    investment outcomes.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="relative border-b border-gray-200 transition-all duration-300"
+              :class="{ 'bg-gray-100 md:rounded-lg': selected == 2 }">
+              <button type="button" class="w-full px-6 py-6" @click="selected !== 4 ? selected = 4 : selected = null">
+                <div class="flex items-center text-left justify-between">
+                  <span class="text-gray-700 font-medium text-lg">Can I cancel my investment?</span>
+                  <span class="text-[#f5713f]">
+                    <svg class="svg-icon transition-all duration-300" :class="{ 'rotate-180': selected === 4 }"
+                      width="31" height="31" viewBox="0 0 30.33 30.27" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <title>ORGANIZE YOUR WAY</title>
+                      <path class="st0" d="M15,0C6.7,0,0,6.7,0,15c0,8.3,6.7,15,15,15c8.3,0,15-6.7,15-15C30,6.7,23.3,0,15,0z M15,18.7l-6-6l1.4-1.4
+                                              l4.6,4.6l4.6-4.6l1.4,1.4L15,18.7z"></path>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+              <div class="relative overflow-hidden transition-all max-h-0 duration-700"
+                x-bind:style="selected == 4 ? 'max-height: ' + $el.scrollHeight + 'px' : ''">
+                <div class="px-8 pb-8 text-[#545454] text-sm">
+                  <p>
+                    For Regulation Crowdfunding, investors are able to cancel their investment at any point throughout
+                    the campaign up until
+                    48 hours before the closing of the offering. Note: If the company does a rolling close, they will
+                    post an update to
+                    their current investors, giving them the opportunity to cancel during this timeframe. If you do not
+                    cancel within this
+                    5-day timeframe, your funds will be invested in the company, and you will no longer be able to
+                    cancel the investment. If
+                    your funds show as 'Invested' on your account dashboard, your investment can no longer be canceled.
+                    <br>
+                    <br>
+                    For Regulation A+, StartEngine allows for a four-hour cancelation period. Once the four-hour window
+                    has passed, it is up
+                    to each company to set their own cancelation policy. You may find the company's cancelation policy
+                    in the company's
+                    offering circular.
+                    <br>
+                    <br>
+                    Once your investment is canceled, there is a 10-day clearing period (from the date your investment
+                    was submitted). After
+                    your funds have cleared the bank, you will receive your refund within 10 business days.
+                    <br>
+                    <br>
+                    Refunds that are made through ACH payments can take up to 10 business days to clear. Unfortunately,
+                    we are at the mercy
+                    of the bank, but we will do everything we can to get you your refund as soon as possible. However,
+                    every investment
+                    needs to go through the clearing process in order to get sent back to the account associated with
+                    the investment.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="relative border-b border-gray-200 transition-all duration-300"
+              :class="{ 'bg-gray-100 md:rounded-lg': selected == 2 }">
+              <button type="button" class="w-full px-6 py-6" @click="selected !== 5 ? selected = 5 : selected = null">
+                <div class="flex items-center text-left justify-between">
+                  <span class="text-gray-700 font-medium text-lg">What is the difference between Regulation Crowdfunding
+                    and Regulation A+?</span>
+                  <span class="text-[#f5713f]">
+                    <svg class="svg-icon transition-all duration-300" :class="{ 'rotate-180': selected === 5 }"
+                      width="31" height="31" viewBox="0 0 30.33 30.27" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <title>ORGANIZE YOUR WAY</title>
+                      <path class="st0" d="M15,0C6.7,0,0,6.7,0,15c0,8.3,6.7,15,15,15c8.3,0,15-6.7,15-15C30,6.7,23.3,0,15,0z M15,18.7l-6-6l1.4-1.4
+                                              l4.6,4.6l4.6-4.6l1.4,1.4L15,18.7z"></path>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+              <div class="relative overflow-hidden transition-all max-h-0 duration-700"
+                x-bind:style="selected == 5 ? 'max-height: ' + $el.scrollHeight + 'px' : ''">
+                <div class="px-8 pb-8 text-[#545454] text-sm">
+                  <p>
+                    Both Title III (Regulation Crowdfunding) and Title IV (Reg A+) help entrepreneurs crowdfund capital
+                    investments from
+                    unaccredited and accredited investors. The differences between these regulations are related to the
+                    investor
+                    limitations, the differing amounts of money companies are permitted to raise, and differing
+                    disclosure and filing
+                    requirements. To learn more about Regulation Crowdfunding, and for Regulation A+
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FAQ SECTION END -->
+
+
+  <!-- FOOTER SECTION START -->
+  <footer class="bg-[#343434] text-[#777] text-sm py-10">
+    <div class="container max-w-screen-xl mx-auto px-4 font-['Roboto']">
+      <nav class="lg:flex lg:flex-wrap lg:space-x-16 mb-3">
+        <div class="mb-6 grow">
+          <p class="font-bold mb-4 text-base">Getting Started</p>
+          <ul>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Get Funded</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">How To Invest</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Pricing</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Sign up</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Log In</a>
+            </li>
+          </ul>
+        </div>
+        <div class="mb-6 grow">
+          <p class="font-bold mb-4 text-base">Browse</p>
+          <ul>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Browse Companies</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Companies</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">People</a>
+            </li>
+          </ul>
+        </div>
+        <div class="mb-6 grow">
+          <p class="font-bold mb-4 text-base">Legal</p>
+          <ul>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Terms of Use</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Privacy Policy</a>
+            </li>
+          </ul>
+        </div>
+        <div class="mb-6 grow">
+          <p class="font-bold mb-4 text-base">Crowdfunder</p>
+          <ul>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">About</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Blog</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Press</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Sitemap</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Support</a>
+            </li>
+          </ul>
+        </div>
+        <div class="mb-6 grow">
+          <p class="font-bold mb-4 text-base">Learn</p>
+          <ul>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Investment Crowdfunding</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Successfully Raise Investment</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Entrepreneur FAQ</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Investor FAQ</a>
+            </li>
+            <li class="text-sm text-[#bbb] hover:text-[#f5713f] transition-all mb-2">
+              <a class="text-current" href="">Knowledge Center</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div
+        class="flex flex-col lg:flex-row justify-center lg:justify-between gap-3 text-sm border-y border-[#444] py-5 mb-5">
+        <div class="w-24 mx-auto lg:m-0">
+          <a href="#" class="block w-full h-full hover:opacity-75 transition-all">
+            <img src="images/mobWOW-Base-Logo-Red (2) - light.svg" class="max-w-full h-auto" alt="">
+          </a>
+        </div>
+        <p class="text-center text-white/80">© 2018 Crowdfunder.com. All rights reserved.</p>
+      </div>
+      <p class="text-xs">
+        DISCLOSURE: Crowdfunder.com is a website owned and operated by Crowdfunder, Inc. ("Crowdfunder"). By accessing
+        this
+        website or any page thereof, you agree to be bound by the Terms of Use and Privacy Policy, as amended from time
+        to time
+        and in effect at the most recent time you access this website or any page thereof. Nothing on this website shall
+        constitute an offer to sell, or a solicitation of an offer to subscribe for or buy, any securities to any person
+        in any
+        jurisdiction to whom or in which such offer or solicitation is unlawful. Consequently, any featured, front page
+        or
+        prominent placement of a listed company on this site is not deemed to be a recommendation and may be based on
+        various
+        algorithms or selections that drive traffic to such listed company. Crowdfunder does not effect securities
+        transactions,
+        give investment advice or recommend any securities as it is not registered as a broker-dealer, funding portal or
+        investment adviser with the U.S. Securities and Exchange Commission or the securities regulatory commission,
+        agency or
+        body of any state of the United States or any non-U.S. jurisdiction. As such, Crowdfunder is not acting in a
+        fiduciary
+        capacity with respect to any user of the Crowdfunder services, and Crowdfunder disclaims any broker-client or
+        advisor-client relationship with respect to any party using those services. Listed companies are actively
+        seeking to
+        raise early stage capital pursuant to Rule 506(b) or Rule 506(c) of Regulation D ("Regulation D") under the U.S.
+        Securities Act of 1933, as amended (the "Securities Act"), or pursuant to Regulation A (sometimes referred to as
+        "Regulation A+") under the Securities Act ("Regulation A"). A listed company’s offerings are being made by, and
+        all the
+        information included on this website relating to a listed company and its securities has been provided by and is
+        the
+        responsibility of, such listed company. A listed company’s offerings on this website, if made pursuant to Rule
+        506(b) or
+        Rule 506(c) of Regulation D, generally are available only to "accredited investors" as defined in Regulation D.
+        Accredited investors are able to identify listed companies in which they may have an interest after a
+        certification
+        process for Rule 506(b) offerings, while Rule 506(c) offerings are available for the general public to view.
+        Offerings
+        made pursuant to Regulation A are also generally available for the general public to view. Investing in
+        securities,
+        particularly in securities issued by start-up companies, involves substantial risk, and investors should be able
+        to bear
+        the loss of their entire investment. All investors should make their own determination of whether or not to make
+        any
+        investment based on their own independent evaluation and analysis. Crowdfunder does not verify or assure that
+        information provided by any listed company offering its securities is accurate or complete or that the valuation
+        of such
+        securities is appropriate. Neither Crowdfunder nor any of its directors, officers, employees, representatives,
+        affiliates or agents shall have any liability whatsoever arising from any error or incompleteness of fact or
+        opinion in,
+        or lack of care in the preparation of, any of the materials posted on this website. Crowdfunder does not provide
+        legal,
+        accounting or tax advice. Any representation or implication to the contrary is expressly disclaimed.
+        <br>
+        <br>
+        You can learn more about investing in Regulation D and Regulation A offerings from the SEC or FINRA.
+      </p>
+    </div>
+  </footer>
+  <!-- FOOTER SECTION END -->
 
 </body>
 
